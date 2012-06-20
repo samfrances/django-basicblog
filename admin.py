@@ -1,5 +1,9 @@
 from django.contrib import admin
 from portfolio.blog.models import Post, Category
 
-admin.site.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    readonly_fields = ('slug',)
+    fields = ('title', 'slug', 'publication_date', 'body', 'tags')
+
+admin.site.register(Post, PostAdmin)
 admin.site.register(Category)
