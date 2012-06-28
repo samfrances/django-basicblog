@@ -9,7 +9,10 @@ from django.template.defaultfilters import slugify
 class _MonthListMixin(object):
     def get_context_data(self, **kwargs):
         context = super(_MonthListMixin, self).get_context_data(**kwargs)
-        context['months'] = self.get_queryset().dates(self.get_date_field(), 'month', order="DESC")
+        try: # Uses built in methods of getting the dates if the class has them, otherwise defaults to manually fetching them
+            context['months'] = self.get_date_list(self.get_queryset(), 'month')
+        except AttributeError:
+            context['months'] = self.get_queryset().dates(self.get_date_field(), 'month', order="DESC")
         return context
 
 class BlogHome(_MonthListMixin, _BasicViewMixin, ArchiveIndexView):
