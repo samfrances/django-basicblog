@@ -18,10 +18,5 @@ class Post(models.Model):
     body = models.TextField()
     tags = models.ManyToManyField(Category)
     
-    def save(self, *args, **kargs): # Modified save that sets the slug the first time the title is set
-        if not self.id:
-            self.slug = slugify(self.title)
-        super(Post, self).save(*args, **kargs)    
-
     def __unicode__(self):
         return self.title
