@@ -1,4 +1,4 @@
-from django.views.generic.dates import ArchiveIndexView, DateDetailView, BaseDateListView
+from django.views.generic.dates import ArchiveIndexView, MonthArchiveView, DateDetailView, BaseDateListView
 from django.shortcuts import get_object_or_404
 from portfolio.blog.models import Post, Category
 from portfolio.views import ExtraContextMixin 
@@ -34,3 +34,13 @@ class SinglePost(BlogBase, DateDetailView,):
     extra_context = {'pagename': 'blog'}
     context_object_name = 'post'
     template_name = 'blog/singlepost.html'
+
+class MonthBlogView(BlogBase, MonthArchiveView):
+    model = Post
+    paginate_by = 10
+    date_field = 'publication_date'
+    month_format = '%m'
+    extra_context = {'pagename': 'blog'}
+    context_object_name = 'posts'
+    template_name = 'blog/home.html'
+    
