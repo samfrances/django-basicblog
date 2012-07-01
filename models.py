@@ -1,9 +1,10 @@
 from django.db import models
 from datetime import datetime
 from django.template.defaultfilters import slugify
+from portfolio.blog.validators import lowerAlphaNumValidator
 
 class Category(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True, validators=[lowerAlphaNumValidator])
     
     class Meta:
         verbose_name_plural = "categories"      # Corrects incorrect pluralisation of "category" in admin interface
