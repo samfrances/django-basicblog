@@ -20,3 +20,8 @@ class Post(models.Model):
     
     def __unicode__(self):
         return self.title
+    
+    @property
+    def url(self):
+        date = self.publication_date
+        return "/blog/{0}/{1}/{2}/{3}/".format(date.year, date.month, date.day, self.slug)
