@@ -7,16 +7,17 @@ from django.http import Http404
 from django.template.defaultfilters import slugify
 
 class BlogBase(ExtraContextMixin):
-    
+
     def get_extra_context(self):
         categories = Category.objects.all()
-        months = self.get_queryset().dates(self.get_date_field(), 'month', order="DESC")
+        months = Post.objects.all().dates(self.get_date_field(), 'month', order="DESC")
         try:
             extra_context = self.extra_context
         except AttributeError:
             extra_context = dict()
         extra_context['categories'] = categories
         extra_context['months'] = months
+        extra_context['pagename'] = 'blog'
         return extra_context
 
 class BlogHome(BlogBase, ArchiveIndexView):
@@ -25,13 +26,11 @@ class BlogHome(BlogBase, ArchiveIndexView):
     date_field = 'publication_date'
     template_name = 'blog/home.html'
     context_object_name = 'posts'
-    extra_context = {'pagename': 'blog'}
 
 class SinglePost(BlogBase, DateDetailView,):
     model = Post
     date_field = 'publication_date'
     month_format = '%m'
-    extra_context = {'pagename': 'blog'}
     context_object_name = 'post'
     template_name = 'blog/singlepost.html'
 
@@ -40,7 +39,12 @@ class MonthBlogView(BlogBase, MonthArchiveView):
     paginate_by = 10
     date_field = 'publication_date'
     month_format = '%m'
-    extra_context = {'pagename': 'blog'}
     context_object_name = 'posts'
     template_name = 'blog/home.html'
-    
+
+class CategoryBlogView(BlogHome):
+    def get_queryset(self):
+        tag = self.kwargs['tag']
+        category = Category.objects.get(name=tag)
+        queryset = category.post_set.all()
+        return queryset
