@@ -1,32 +1,36 @@
 from django.views.generic.dates import ArchiveIndexView, DateDetailView, BaseDateListView
 from django.shortcuts import get_object_or_404
 from portfolio.blog.models import Post, Category
-from portfolio.views import _BasicViewMixin
+from portfolio.views import ExtraContextMixin 
 from datetime import datetime
 from django.http import Http404
 from django.template.defaultfilters import slugify
 
-class _MonthListMixin(object):
-    def get_context_data(self, **kwargs):
-        context = super(_MonthListMixin, self).get_context_data(**kwargs)
-        try: # Uses built in methods of getting the dates if the class has them, otherwise defaults to manually fetching them
-            context['months'] = self.get_date_list(self.get_queryset(), 'month')
+class BlogBase(ExtraContextMixin):
+    
+    def get_extra_context(self):
+        categories = Category.objects.all()
+        months = self.get_queryset().dates(self.get_date_field(), 'month', order="DESC")
+        try:
+            extra_context = self.extra_context
         except AttributeError:
-            context['months'] = self.get_queryset().dates(self.get_date_field(), 'month', order="DESC")
-        return context
+            extra_context = dict()
+        extra_context['categories'] = categories
+        extra_context['months'] = months
+        return extra_context
 
-class BlogHome(_MonthListMixin, _BasicViewMixin, ArchiveIndexView):
+class BlogHome(BlogBase, ArchiveIndexView):
     model = Post
     paginate_by = 10
     date_field = 'publication_date'
     template_name = 'blog/home.html'
     context_object_name = 'posts'
-    pagename = 'blog'
+    extra_context = {'pagename': 'blog'}
 
-class SinglePost(_MonthListMixin, _BasicViewMixin, DateDetailView,):
+class SinglePost(BlogBase, DateDetailView,):
     model = Post
     date_field = 'publication_date'
     month_format = '%m'
-    pagename = 'blog'
+    extra_context = {'pagename': 'blog'}
     context_object_name = 'post'
     template_name = 'blog/singlepost.html'
