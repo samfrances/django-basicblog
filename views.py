@@ -40,11 +40,18 @@ class MonthBlogView(BlogBase, MonthArchiveView):
     date_field = 'publication_date'
     month_format = '%m'
     context_object_name = 'posts'
-    template_name = 'blog/home.html'
+    template_name = 'blog/month_archive.html'
 
 class CategoryBlogView(BlogHome):
+    template_name = 'blog/category_archive.html'
+    
     def get_queryset(self):
         tag = self.kwargs['tag']
         category = Category.objects.get(name=tag)
         queryset = category.post_set.all()
         return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super(CategoryBlogView, self).get_context_data(**kwargs)
+        context['category'] = self.kwargs['tag']
+        return context
