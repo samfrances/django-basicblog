@@ -8,6 +8,8 @@ from django.template.defaultfilters import slugify
 
 class BlogBase(ExtraContextMixin):
 
+    paginate_by = 5
+
     def get_extra_context(self):
         categories = Category.objects.all()
         months = Post.objects.all().dates(self.get_date_field(), 'month', order="DESC")
@@ -22,7 +24,6 @@ class BlogBase(ExtraContextMixin):
 
 class BlogHome(BlogBase, ArchiveIndexView):
     model = Post
-    paginate_by = 10
     date_field = 'publication_date'
     template_name = 'blog/home.html'
     context_object_name = 'posts'
@@ -36,7 +37,6 @@ class SinglePost(BlogBase, DateDetailView,):
 
 class MonthBlogView(BlogBase, MonthArchiveView):
     model = Post
-    paginate_by = 10
     date_field = 'publication_date'
     month_format = '%m'
     context_object_name = 'posts'
