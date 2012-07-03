@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import datetime
-from django.template.defaultfilters import slugify
 from portfolio.blog.validators import lowerAlphaNumValidator
 
 class Category(models.Model):
