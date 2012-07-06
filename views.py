@@ -7,6 +7,9 @@ from django.http import Http404
 from django.template.defaultfilters import slugify
 
 class BlogBase(ExtraContextMixin):
+    """Base class for blog posts. Provides the functionality of ExtraContextMixin and augments the context with a list
+    of all blog post categories, all months for which there are blog articles, and other items"""
+ 
 
     paginate_by = 5
 
