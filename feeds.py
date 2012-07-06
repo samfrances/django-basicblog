@@ -17,9 +17,6 @@ class RssFeed(Feed):
     def item_description(self, item):
         return item.body
     
-    def item_link(self, item):
-        return item.url
-    
     def item_pubdate(self, item):
         return item.publication_date
 

@@ -21,7 +21,9 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
     
-    @property
-    def url(self):
+    @models.permalink
+    def get_absolute_url(self):
+        """Calculates absolute url (doesn't include domain), with permalink decorator locating the relevant named
+        urlpattern"""
         date = self.publication_date
-        return "/blog/{0}/{1}/{2}/{3}/".format(date.year, date.month, date.day, self.slug)
+        return ('single_post_url', (), { 'slug': self.slug, 'year': date.year, 'month': date.month, 'day': date.day })
