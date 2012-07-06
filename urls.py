@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     (r'^tag/(?P<tag>[A-Za-z]+)/$', CategoryBlogView.as_view()),
     (r'^feeds/rss/$', RssFeed()),
     (r'^feeds/atom/$', AtomFeed()), 
+    (r'^comments/', include('django.contrib.comments.urls')),
 )
