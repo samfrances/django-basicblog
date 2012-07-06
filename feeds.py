@@ -3,7 +3,6 @@
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
 from portfolio.blog.models import Post
-from datetime import tzinfo, timedelta
 
 class RssFeed(Feed):
     title = "Sam Frances's blog"
