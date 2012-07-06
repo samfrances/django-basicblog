@@ -1,3 +1,5 @@
+"""RssFeed and AtomFeed views"""
+
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
 from portfolio.blog.models import Post
