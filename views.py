@@ -22,7 +22,7 @@ class BlogBase(ExtraContextMixin):
             extra_context = dict()
         extra_context['categories'] = categories
         extra_context['months'] = months
-        extra_context['current_tab'] = 'blog'
+#        extra_context['current_tab'] = 'blog'
         return extra_context
 
 class BlogHome(BlogBase, ArchiveIndexView):
