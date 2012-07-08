@@ -1,7 +1,6 @@
 from django.views.generic.dates import ArchiveIndexView, MonthArchiveView, DateDetailView, BaseDateListView
 from django.shortcuts import get_object_or_404
 from portfolio.blog.models import Post, Category
-from portfolio.views import ExtraContextMixin 
 from datetime import datetime
 from django.http import Http404
 from django.template.defaultfilters import slugify
