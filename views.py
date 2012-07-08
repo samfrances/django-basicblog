@@ -44,6 +44,13 @@ class MonthBlogView(BlogBase, MonthArchiveView):
     month_format = '%m'
     context_object_name = 'posts'
     template_name = 'blog/month_archive.html'
+    
+    def get_queryset(self):
+        """Override get_queryset method of MonthArchiveView (which by default displays posts in chronological order) to
+        display posts in reverse chronological order (i.e. most recent to least recent)"""
+        queryset = super(MonthBlogView, self).get_queryset().order_by('-publication_date')
+        return queryset
+
 
 class CategoryBlogView(BlogHome):
     template_name = 'blog/category_archive.html'
