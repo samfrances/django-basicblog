@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from portfolio.blog.validators import lowerAlphaNumValidator
+from django.contrib.comments.moderation import CommentModerator, moderator
 
 class Category(models.Model):
     name = models.CharField(max_length=20, unique=True, validators=[lowerAlphaNumValidator])
@@ -27,3 +28,8 @@ class Post(models.Model):
         urlpattern"""
         date = self.publication_date
         return ('single_post_url', (), { 'slug': self.slug, 'year': date.year, 'month': date.month, 'day': date.day })
+
+class PostModerator(CommentModerator):
+    email_notification = True
+
+moderator.register(Post, PostModerator)
