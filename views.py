@@ -1,9 +1,5 @@
 from django.views.generic.dates import ArchiveIndexView, MonthArchiveView, DateDetailView, BaseDateListView
-from django.shortcuts import get_object_or_404
 from portfolio.blog.models import Post, Category
-from datetime import datetime
-from django.http import Http404
-from django.template.defaultfilters import slugify
 
 class BlogBase(object):
     """Base class for blog posts."""

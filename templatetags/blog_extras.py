@@ -26,7 +26,4 @@ class BlogVarsNode(template.Node):
         blog_vars['months'] = Post.objects.all().dates('publication_date', 'month', order="DESC")
         blog_vars['categories'] = Category.objects.all()
         context[self.var_name] = blog_vars
-#        context['blog'] = dict()
-#        context['blog']['months'] = Post.objects.all().dates('publication_date', 'month', order="DESC")
-#        context['blog']['categories'] = Category.objects.all()
         return ''
