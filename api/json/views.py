@@ -30,4 +30,3 @@ class CategoryBlogViewJson(JsonMixin, CategoryBlogView): pass
 class SinglePostJson(JsonMixin, SinglePost):
     def prepare_data(self, data):
         return self.blogpost_to_dict(data)
-    
