@@ -1,4 +1,5 @@
 from django.views.generic.dates import ArchiveIndexView, MonthArchiveView, DateDetailView, BaseDateListView
+from django.shortcuts import get_object_or_404
 from portfolio.blog.models import Post, Category
 
 class BlogBase(object):
@@ -32,7 +33,7 @@ class CategoryBlogView(BlogHome):
     
     def get_queryset(self):
         tag = self.kwargs['tag']
-        category = Category.objects.get(name=tag)
+        category = get_object_or_404(Category, name=tag)
         queryset = category.post_set.all()
         return queryset
     
