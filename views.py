@@ -11,7 +11,7 @@ class BlogBase(object):
 class BlogHome(BlogBase, ArchiveIndexView):
     template_name = 'blog/home.html'
 
-class SinglePost(BlogBase, DateDetailView,):
+class SinglePost(BlogBase, DateDetailView):
     month_format = '%m'
     context_object_name = 'post'
     template_name = 'blog/singlepost.html'
