@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.utils import simplejson
-from blog.views import BlogHome, SinglePost, MonthBlogView, CategoryBlogView
+from portfolio.blog.views import BlogHome, SinglePost, MonthBlogView, CategoryBlogView
 
 class JsonMixin(object):
     response_class = HttpResponse
