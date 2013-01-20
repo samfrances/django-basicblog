@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.utils import simplejson
+from django.contrib.comments.models import Comment
 from portfolio.blog.views import BlogHome, SinglePost, MonthBlogView, CategoryBlogView
+
+
 
 class JsonMixin(object):
     response_class = HttpResponse
@@ -9,11 +12,24 @@ class JsonMixin(object):
     def prepare_data(self, data):
         return [self.blogpost_to_dict(post) for post in data]
     
-    def blogpost_to_dict(self, post):
+    @classmethod
+    def blogpost_to_dict(cls, post):
+        
+        comments = Comment.objects.filter(object_pk=post.pk).filter(is_public=True).filter(is_removed=False)
+        comments = [cls.comment_to_dict(c) for c in comments]
+        
         return {'title': post.title,
                 'body': post.body,
                 'publication_date': str(post.publication_date),
-                'tags':[tag.name for tag in post.tags.all()]}
+                'tags':[tag.name for tag in post.tags.all()],
+                'comments': comments}
+    
+    @staticmethod
+    def comment_to_dict(comment):
+        return {'user_name': comment.user_name,
+                'user_email': comment.user_email,
+                'user_url': comment.user_url,
+                'comment': comment.comment}
     
     def render_to_response(self, context, **response_kwargs):
         data = context[self.context_object_name]
