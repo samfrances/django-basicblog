@@ -1,5 +1,5 @@
 from django.contrib import admin
-from basicblog.models import Post, Category
+from .models import Post, Category
 
 class PostAdmin(admin.ModelAdmin):
     fields = ('title', 'slug', 'publication_date', 'body', 'tags')

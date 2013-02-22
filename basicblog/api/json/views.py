@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.utils import simplejson
 from django.contrib.comments.models import Comment
-from basicblog.views import BlogHome, SinglePost, MonthBlogView, CategoryBlogView
+from ...views import BlogHome, SinglePost, MonthBlogView, CategoryBlogView
 
 
 

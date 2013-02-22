@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import patterns, include, url
-from basicblog.views import BlogHome, SinglePost, MonthBlogView, CategoryBlogView
-from basicblog.feeds import RssFeed, AtomFeed
-from basicblog.api.json.views import BlogHomeJson, SinglePostJson, CategoryBlogViewJson, MonthBlogViewJson
+from .views import BlogHome, SinglePost, MonthBlogView, CategoryBlogView
+from .feeds import RssFeed, AtomFeed
+from .api.json.views import BlogHomeJson, SinglePostJson, CategoryBlogViewJson, MonthBlogViewJson
 
 endings = r'^%s$'
 json_endings = r'^%sjson/$'
