@@ -1,6 +1,6 @@
 from django.views.generic.dates import ArchiveIndexView, MonthArchiveView, DateDetailView, BaseDateListView
 from django.shortcuts import get_object_or_404
-from portfolio.blog.models import Post, Category
+from .models import Post, Category
 
 class BlogBase(object):
     """Base class for blog posts."""
