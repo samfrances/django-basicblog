@@ -4,7 +4,15 @@ use_setuptools()
 from setuptools import setup, find_packages
 
 setup(
-    name = "Django Basic Blog", # Check other projects to see if name is same as package
+    name = "django-basicblog",
     version = "0.1",
     packages = find_packages(),
+    install_requires = ['django>=3.3'], # check
+
+    author = 'Sam Frances',
+    author_email = 'sam@samfrances.co.uk',
+    description = 'A simple blog app for django',
+    license = '???', # fill in
+    keywords = 'django python blog',
+    url = 'http://github.com/samfrances/django-basicblog',
 )
